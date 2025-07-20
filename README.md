@@ -305,10 +305,10 @@ people_count = detector.count_people_in_store(
 ## 📈 Demo Results
 
 ### Live Detection Results
-![YOLO Detection Demo](results/yolo_detection_demo.png)
+![YOLO Detection Demo](results/yolo_detection_demo.png.png)
 
 ### Terminal Output
-![Terminal Output](results/yolo_terminal_output.png)
+![Terminal Output](results/yolo_terminal_output.png.png)
 
 ### Performance Metrics
 - **Model**: YOLOv5s
