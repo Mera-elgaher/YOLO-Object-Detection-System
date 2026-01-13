@@ -38,7 +38,7 @@ class YOLOv5Detector:
             'toothbrush'
         ]
         
-        print(f"🔍 Initializing YOLO {model_size} detector...")
+        print(f" Initializing YOLO {model_size} detector...")
         self.load_model()
     
     def load_model(self):
@@ -53,12 +53,12 @@ class YOLOv5Detector:
             self.model.conf = self.confidence_threshold
             self.model.iou = self.iou_threshold
             
-            print(f"✅ Model {self.model_size} loaded successfully!")
+            print(f" Model {self.model_size} loaded successfully!")
             print(f"Device: {self.device}")
             
         except Exception as e:
-            print(f"❌ Error loading model: {e}")
-            print("💡 Installing required packages...")
+            print(f" Error loading model: {e}")
+            print(" Installing required packages...")
             os.system("pip install ultralytics")
             self.model = torch.hub.load('ultralytics/yolov5', self.model_size, pretrained=True)
     
@@ -82,7 +82,7 @@ class YOLOv5Detector:
             return img_rgb, detections, results
             
         except Exception as e:
-            print(f"❌ Error detecting objects: {e}")
+            print(f" Error detecting objects: {e}")
             return None, None, None
     
     def detect_video(self, video_path, output_path=None):
@@ -90,7 +90,7 @@ class YOLOv5Detector:
         cap = cv2.VideoCapture(video_path)
         
         if not cap.isOpened():
-            print(f"❌ Error opening video: {video_path}")
+            print(f" Error opening video: {video_path}")
             return
         
         # Get video properties
@@ -99,7 +99,7 @@ class YOLOv5Detector:
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         
-        print(f"📹 Processing video: {total_frames} frames at {fps} FPS")
+        print(f" Processing video: {total_frames} frames at {fps} FPS")
         
         # Setup video writer if output path provided
         if output_path:
@@ -145,7 +145,7 @@ class YOLOv5Detector:
         cap.release()
         if output_path:
             out.release()
-            print(f"✅ Video saved to: {output_path}")
+            print(f" Video saved to: {output_path}")
         
         return detection_stats
     
@@ -154,10 +154,10 @@ class YOLOv5Detector:
         cap = cv2.VideoCapture(0)
         
         if not cap.isOpened():
-            print("❌ Error: Could not open webcam")
+            print(" Error: Could not open webcam")
             return
         
-        print("📹 Starting webcam detection (Press 'q' to quit)")
+        print(" Starting webcam detection (Press 'q' to quit)")
         
         # Setup video writer if saving
         if save_video:
@@ -194,7 +194,7 @@ class YOLOv5Detector:
         cv2.destroyAllWindows()
         if save_video:
             out.release()
-            print(f"✅ Video saved to: {output_path}")
+            print(f" Video saved to: {output_path}")
     
     def draw_detections(self, image, results):
         """Draw bounding boxes and labels on image"""
@@ -286,12 +286,12 @@ class YOLOv5Detector:
             confidence_scores.append(confidence)
         
         # Print statistics
-        print("📊 Detection Analysis:")
+        print(" Detection Analysis:")
         print(f"Total objects detected: {len(detections)}")
         print(f"Average confidence: {np.mean(confidence_scores):.3f}")
         print(f"Unique classes: {len(class_counts)}")
         
-        print("\n📋 Objects detected:")
+        print("\n Objects detected:")
         for class_name, count in sorted(class_counts.items()):
             print(f"  {class_name}: {count}")
         
@@ -299,7 +299,7 @@ class YOLOv5Detector:
     
     def benchmark_performance(self, image_path, num_runs=10):
         """Benchmark detection performance"""
-        print(f"⏱️ Benchmarking performance ({num_runs} runs)...")
+        print(f" Benchmarking performance ({num_runs} runs)...")
         
         import time
         times = []
@@ -319,7 +319,7 @@ class YOLOv5Detector:
         avg_time = np.mean(times)
         fps = 1.0 / avg_time
         
-        print(f"\n📈 Performance Results:")
+        print(f"\n Performance Results:")
         print(f"Average inference time: {avg_time:.3f}s")
         print(f"Estimated FPS: {fps:.1f}")
         print(f"Min time: {min(times):.3f}s")
@@ -332,9 +332,9 @@ class YOLOv5Detector:
         try:
             # Export to ONNX
             self.model.model.export(format='onnx', dynamic=True)
-            print(f"✅ Model exported to ONNX format: {output_path}")
+            print(f" Model exported to ONNX format: {output_path}")
         except Exception as e:
-            print(f"❌ Error exporting to ONNX: {e}")
+            print(f" Error exporting to ONNX: {e}")
     
     def save_results(self, image, detections, output_path):
         """Save detection results"""
@@ -356,7 +356,7 @@ class YOLOv5Detector:
         
         # Save image
         cv2.imwrite(output_path, cv2.cvtColor(img_with_detections, cv2.COLOR_RGB2BGR))
-        print(f"💾 Results saved to: {output_path}")
+        print(f" Results saved to: {output_path}")
 
 # Custom YOLO training class
 class YOLOTrainer:
@@ -366,7 +366,7 @@ class YOLOTrainer:
         
     def train_custom_model(self, epochs=100, batch_size=16, img_size=640):
         """Train custom YOLO model"""
-        print("🚀 Starting custom YOLO training...")
+        print(" Starting custom YOLO training...")
         
         # Training command
         cmd = f"""
@@ -379,7 +379,7 @@ class YOLOTrainer:
 
 # Example usage
 if __name__ == "__main__":
-    print("🔍 YOLO Object Detection System")
+    print(" YOLO Object Detection System")
     print("=" * 50)
     
     # Initialize detector
@@ -390,7 +390,7 @@ if __name__ == "__main__":
     
     # Download a test image if it doesn't exist
     if not os.path.exists(image_path):
-        print("📥 Downloading test image...")
+        print(" Downloading test image...")
         url = "https://ultralytics.com/images/bus.jpg"
         urllib.request.urlretrieve(url, image_path)
     
@@ -410,11 +410,11 @@ if __name__ == "__main__":
         # Benchmark performance
         detector.benchmark_performance(image_path)
         
-        print("✅ Object detection completed!")
+        print(" Object detection completed!")
     else:
-        print("❌ No objects detected or error occurred.")
+        print(" No objects detected or error occurred.")
     
     # Example: Real-time webcam detection (uncomment to use)
     # detector.detect_webcam(save_video=True)
     
-    print("\n🎯 Detection system ready for deployment!")
+    print("\n  Detection system ready for deployment!")
